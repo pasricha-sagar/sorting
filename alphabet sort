@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct st_ex {
+ char firstname[20];
+ char lastname[20];
+ char city[20];
+};
+
+int struct_cmp_by_lastname(const void *a, const void *b)
+{
+ struct st_ex *ia = (struct st_ex *)a;
+ struct st_ex *ib = (struct st_ex *)b;
+ return strcmp(ia->lastname, ib->lastname);
+}
+
+int struct_cmp_by_firstname(const void *a, const void *b)
+{
+ struct st_ex *ia = (struct st_ex *)a;
+ struct st_ex *ib = (struct st_ex *)b;
+ return strcmp(ia->firstname, ib->firstname);
+}
+
+int struct_cmp_by_city(const void *a, const void *b)
+{
+ struct st_ex *ia = (struct st_ex *)a;
+ struct st_ex *ib = (struct st_ex *)b;
+ return strcmp(ia->city, ib->city);
+}
+
+void print_struct_array(struct st_ex *array, size_t len)
+{
+ size_t i;
+ for(i=0; i<len; i++)
+ printf("firstname: %s \t | lastname: %s \t | city: %s \t\n", array[i].firstname, array[i].lastname,array[i].city);
+ puts("--");
+}
+
+void sort_structs_example(void)
+{
+ struct st_ex structs[] = {{"sagar", "pasricha", "karnal"}, {"sahil", "gupta", "panipat"},
+ {"amit", "sharma", "delhi"}, {"kumud", "sangar", "ludhiana"},
+ {"vishal", "sukhija", "kapurthala"}, {"amanpreet", "singh", "chandigarh"},
+ {"bhupesh", "kumar", "noida"}, {"abhishek", "salhotra", "montreal"},
+ {"gurjeet", "sekhon", "brampton"}, {"sonu", "virk", "toronto"},
+ {"mukul", "saini", "hoshiarpur"}, {"sarvpreet", "chhetra", "jalandhar"},
+ {"jaipal", "sukhia", "dhilwan"}, {"sahil", "pasricha", "pipli"},
+ {"hitesh", "kumar", "gurgaon"}, {"harish", "ahuja", "ambala"},
+ {"jashan", "preet", "north york"}, {"jasmeet", "gujral", "scarbrough"},
+ {"ankush", "bagga", "nilokheri"}, {"sunil", "yadav", "jaipur"}};
+ 
+ size_t structs_len = sizeof(structs) / sizeof(struct st_ex);
+ puts("*** (sorting)...");
+ print_struct_array(structs, structs_len);
+ qsort(structs, structs_len, sizeof(struct st_ex), struct_cmp_by_firstname);
+ print_struct_array(structs, structs_len);
+}
+
+int main()
+{
+ sort_structs_example();
+ return 0;
+}
